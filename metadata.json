@@ -1,0 +1,7 @@
+{
+  "name": "Agenda Hogares",
+  "description": "Planificador y cronograma diario para hogares infantiles con grilla interactiva, gestión de chicos, actividades, lugares, operadores y exportación directa a WhatsApp.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
