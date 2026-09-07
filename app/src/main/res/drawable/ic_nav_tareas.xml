@@ -1,0 +1,54 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Clip / Clamp at top -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#FF000000"
+        android:strokeWidth="1.6"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M9,3h6v3H9z" />
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#FF000000"
+        android:strokeWidth="1.6"
+        android:strokeLineCap="round"
+        android:pathData="M10.5,3V2a1.5,1.5 0 0,1 3,0v1" />
+    <!-- Clipboard body -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#FF000000"
+        android:strokeWidth="1.6"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M8.5,5H6a2,2 0 0,0 -2,2v13a2,2 0 0,0 2,2h12a2,2 0 0,0 2,-2V7a2,2 0 0,0 -2,-2h-2.5" />
+    <!-- 3 Horizontal task lines on left -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#FF000000"
+        android:strokeWidth="1.6"
+        android:strokeLineCap="round"
+        android:pathData="M7,9h6 M7,13.5h6 M7,18h6" />
+    <!-- 3 Checklist checkboxes on right -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#FF000000"
+        android:strokeWidth="1.5"
+        android:strokeLineJoin="round"
+        android:pathData="M15,7.5h2.5a1,1 0 0,1 1,1v1.5a1,1 0 0,1 -1,1H15a1,1 0 0,1 -1,-1V8.5a1,1 0 0,1 1,-1z" />
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#FF000000"
+        android:strokeWidth="1.5"
+        android:strokeLineJoin="round"
+        android:pathData="M15,12h2.5a1,1 0 0,1 1,1v1.5a1,1 0 0,1 -1,1H15a1,1 0 0,1 -1,-1V13a1,1 0 0,1 1,-1z" />
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#FF000000"
+        android:strokeWidth="1.5"
+        android:strokeLineJoin="round"
+        android:pathData="M15,16.5h2.5a1,1 0 0,1 1,1v1.5a1,1 0 0,1 -1,1H15a1,1 0 0,1 -1,-1V17.5a1,1 0 0,1 1,-1z" />
+</vector>

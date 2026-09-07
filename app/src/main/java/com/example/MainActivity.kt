@@ -157,11 +157,13 @@ fun AgendaApp(viewModel: AgendaViewModel) {
                 AgendaTab.ACTIVIDADES -> ActividadesScreen(
                     actividades = actividades,
                     onAddActividad = { viewModel.openAddActividadDialog() },
+                    onEditActividad = { viewModel.openEditActividadDialog(it) },
                     onDeleteActividad = { viewModel.deleteActividad(it) }
                 )
                 AgendaTab.LUGARES -> LugaresScreen(
                     lugares = lugares,
                     onAddLugar = { viewModel.openAddLugarDialog() },
+                    onEditLugar = { viewModel.openEditLugarDialog(it) },
                     onDeleteLugar = { viewModel.deleteLugar(it) }
                 )
                 AgendaTab.OPERADORES -> OperadoresScreen(
@@ -249,7 +251,7 @@ fun AgendaApp(viewModel: AgendaViewModel) {
             onSaveChico = { name, color, textCol -> viewModel.saveChico(name, color, textCol) },
             onSaveActividad = { name, color -> viewModel.saveActividad(name, color) },
             onSaveLugar = { name -> viewModel.saveLugar(name) },
-            onSaveOperador = { name, color -> viewModel.saveOperador(name, color) }
+            onSaveOperador = { name, color, textCol -> viewModel.saveOperador(name, color, textCol) }
         )
     }
 

@@ -322,7 +322,7 @@ fun EditEntryDialog(
                         chicosCatalog.forEach { chico ->
                             val isSelected = selectedChicos.contains(chico.name.uppercase())
                             val chipBg = parseHexColor(chico.colorHex, Color(0xFF3B82F6))
-                            val chipText = parseHexColor(chico.textColorHex, Color.White)
+                            val chipText = Color.White
 
                             Box(
                                 modifier = Modifier

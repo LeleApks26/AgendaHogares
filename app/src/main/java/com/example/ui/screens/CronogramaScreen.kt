@@ -210,7 +210,8 @@ fun CronogramaScreen(
                                 BadgeChip(
                                     text = name,
                                     backgroundColorHex = bg,
-                                    textColorHex = txt
+                                    textColorHex = "#FFFFFF",
+                                    forceWhiteText = true
                                 )
                             }
                         }

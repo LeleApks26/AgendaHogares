@@ -29,16 +29,41 @@ fun parseHexColor(hex: String, defaultColor: Color = Color(0xFF3B82F6)): Color {
     }
 }
 
+/**
+ * Calculates optimal text color (#000000 or #FFFFFF) for contrast against the background color.
+ */
+fun getOptimalTextColorHex(bgColorHex: String): String {
+    return try {
+        val clean = bgColorHex.removePrefix("#")
+        val colorInt = clean.toLong(16)
+        val r = ((colorInt shr 16) and 0xFF) / 255.0
+        val g = ((colorInt shr 8) and 0xFF) / 255.0
+        val b = (colorInt and 0xFF) / 255.0
+        val luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b
+        if (luminance > 0.52) "#000000" else "#FFFFFF"
+    } catch (_: Exception) {
+        "#FFFFFF"
+    }
+}
+
 @Composable
 fun BadgeChip(
     text: String,
     backgroundColorHex: String,
     textColorHex: String = "#FFFFFF",
+    forceWhiteText: Boolean = false,
     modifier: Modifier = Modifier,
     onClick: (() -> Unit)? = null
 ) {
     val bgColor = parseHexColor(backgroundColorHex, Color(0xFF3B82F6))
-    val textColor = parseHexColor(textColorHex, Color.White)
+    val effectiveTextColorHex = if (forceWhiteText) {
+        "#FFFFFF"
+    } else if (textColorHex.isBlank() || (textColorHex == "#FFFFFF" && getOptimalTextColorHex(backgroundColorHex) == "#000000")) {
+        getOptimalTextColorHex(backgroundColorHex)
+    } else {
+        textColorHex
+    }
+    val textColor = parseHexColor(effectiveTextColorHex, Color.White)
 
     Box(
         modifier = modifier

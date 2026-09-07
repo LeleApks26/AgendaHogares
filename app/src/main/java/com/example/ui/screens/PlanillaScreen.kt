@@ -253,7 +253,8 @@ fun PlanillaScreen(
                                             BadgeChip(
                                                 text = name,
                                                 backgroundColorHex = bg,
-                                                textColorHex = "#FFFFFF"
+                                                textColorHex = "#FFFFFF",
+                                                forceWhiteText = true
                                             )
                                         }
                                     }

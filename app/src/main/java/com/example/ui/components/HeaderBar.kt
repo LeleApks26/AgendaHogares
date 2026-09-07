@@ -8,6 +8,7 @@ import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -156,13 +157,11 @@ fun HeaderBar(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Navigation Tabs + Add Row Button (scrollable row)
+            // Navigation Tabs with compact icon-only buttons to fit on screen without horizontal scrolling
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .horizontalScroll(rememberScrollState()),
+                modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(6.dp)
+                horizontalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 AgendaTab.entries.forEach { tab ->
                     val isSelected = currentTab == tab
@@ -173,30 +172,56 @@ fun HeaderBar(
                             contentColor = if (isSelected) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurfaceVariant
                         ),
                         shape = RoundedCornerShape(8.dp),
-                        contentPadding = ButtonDefaults.ContentPadding,
+                        contentPadding = PaddingValues(horizontal = 0.dp, vertical = 0.dp),
                         modifier = Modifier
-                            .height(36.dp)
+                            .weight(1f)
+                            .height(38.dp)
                             .testTag("nav_tab_${tab.name.lowercase()}")
                     ) {
-                        val icon = when (tab) {
-                            AgendaTab.PLANILLA -> Icons.Default.TableChart
-                            AgendaTab.CRONOGRAMA -> Icons.Default.Schedule
-                            AgendaTab.CHICOS -> Icons.Default.Face
-                            AgendaTab.ACTIVIDADES -> Icons.Default.Tag
-                            AgendaTab.LUGARES -> Icons.Default.LocationOn
-                            AgendaTab.OPERADORES -> Icons.Default.Badge
+                        when (tab) {
+                            AgendaTab.ACTIVIDADES -> {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_nav_tareas),
+                                    contentDescription = tab.label,
+                                    modifier = Modifier.size(20.dp)
+                                )
+                            }
+                            AgendaTab.OPERADORES -> {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_nav_operadores),
+                                    contentDescription = tab.label,
+                                    modifier = Modifier.size(20.dp)
+                                )
+                            }
+                            AgendaTab.PLANILLA -> {
+                                Icon(
+                                    imageVector = Icons.Default.TableChart,
+                                    contentDescription = tab.label,
+                                    modifier = Modifier.size(20.dp)
+                                )
+                            }
+                            AgendaTab.CRONOGRAMA -> {
+                                Icon(
+                                    imageVector = Icons.Default.Schedule,
+                                    contentDescription = tab.label,
+                                    modifier = Modifier.size(20.dp)
+                                )
+                            }
+                            AgendaTab.CHICOS -> {
+                                Icon(
+                                    imageVector = Icons.Default.Face,
+                                    contentDescription = tab.label,
+                                    modifier = Modifier.size(20.dp)
+                                )
+                            }
+                            AgendaTab.LUGARES -> {
+                                Icon(
+                                    imageVector = Icons.Default.LocationOn,
+                                    contentDescription = tab.label,
+                                    modifier = Modifier.size(20.dp)
+                                )
+                            }
                         }
-                        Icon(
-                            imageVector = icon,
-                            contentDescription = null,
-                            modifier = Modifier.size(16.dp)
-                        )
-                        Spacer(modifier = Modifier.width(6.dp))
-                        Text(
-                            text = tab.label,
-                            fontSize = 12.sp,
-                            fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
-                        )
                     }
                 }
             }

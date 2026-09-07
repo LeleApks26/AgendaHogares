@@ -102,7 +102,8 @@ fun ChicosScreen(
                             BadgeChip(
                                 text = chico.name,
                                 backgroundColorHex = chico.colorHex,
-                                textColorHex = chico.textColorHex,
+                                textColorHex = "#FFFFFF",
+                                forceWhiteText = true,
                                 modifier = Modifier.size(width = 80.dp, height = 30.dp)
                             )
                             Spacer(modifier = Modifier.width(12.dp))
@@ -132,6 +133,7 @@ fun ChicosScreen(
 fun ActividadesScreen(
     actividades: List<Actividad>,
     onAddActividad: () -> Unit,
+    onEditActividad: (Actividad) -> Unit,
     onDeleteActividad: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -193,8 +195,13 @@ fun ActividadesScreen(
                                 color = MaterialTheme.colorScheme.onSurface
                             )
                         }
-                        IconButton(onClick = { onDeleteActividad(act.id) }) {
-                            Icon(Icons.Default.DeleteOutline, contentDescription = "Eliminar", tint = MaterialTheme.colorScheme.error)
+                        Row {
+                            IconButton(onClick = { onEditActividad(act) }) {
+                                Icon(Icons.Default.Edit, contentDescription = "Editar", tint = MaterialTheme.colorScheme.primary)
+                            }
+                            IconButton(onClick = { onDeleteActividad(act.id) }) {
+                                Icon(Icons.Default.DeleteOutline, contentDescription = "Eliminar", tint = MaterialTheme.colorScheme.error)
+                            }
                         }
                     }
                 }
@@ -207,6 +214,7 @@ fun ActividadesScreen(
 fun LugaresScreen(
     lugares: List<Lugar>,
     onAddLugar: () -> Unit,
+    onEditLugar: (Lugar) -> Unit,
     onDeleteLugar: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -259,8 +267,13 @@ fun LugaresScreen(
                             fontSize = 14.sp,
                             color = MaterialTheme.colorScheme.onSurface
                         )
-                        IconButton(onClick = { onDeleteLugar(lugar.id) }) {
-                            Icon(Icons.Default.DeleteOutline, contentDescription = "Eliminar", tint = MaterialTheme.colorScheme.error)
+                        Row {
+                            IconButton(onClick = { onEditLugar(lugar) }) {
+                                Icon(Icons.Default.Edit, contentDescription = "Editar", tint = MaterialTheme.colorScheme.primary)
+                            }
+                            IconButton(onClick = { onDeleteLugar(lugar.id) }) {
+                                Icon(Icons.Default.DeleteOutline, contentDescription = "Eliminar", tint = MaterialTheme.colorScheme.error)
+                            }
                         }
                     }
                 }

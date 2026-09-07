@@ -45,6 +45,14 @@ object PlanillaImageGenerator {
         }
     }
 
+    private fun isColorLight(colorInt: Int): Boolean {
+        val r = AndroidColor.red(colorInt) / 255.0
+        val g = AndroidColor.green(colorInt) / 255.0
+        val b = AndroidColor.blue(colorInt) / 255.0
+        val luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b
+        return luminance > 0.52
+    }
+
     /**
      * Splits or wraps text into two lines (doble renglón) if it contains
      * any word with >12 characters or if total length exceeds 12 characters.
@@ -99,16 +107,18 @@ object PlanillaImageGenerator {
     ): File? {
         try {
             val chicosColorMap = chicosCatalog.associate {
-                it.name.uppercase() to Pair(
-                    parseColor(it.colorHex, AndroidColor.parseColor("#3B82F6")),
-                    parseColor(it.textColorHex, AndroidColor.WHITE)
-                )
+                val bg = parseColor(it.colorHex, AndroidColor.parseColor("#3B82F6"))
+                val txt = AndroidColor.WHITE
+                it.name.uppercase() to Pair(bg, txt)
             }
             val operadoresColorMap = operadoresCatalog.associate {
-                it.name.uppercase() to Pair(
-                    parseColor(it.colorHex, AndroidColor.parseColor("#2563EB")),
-                    parseColor(it.textColorHex, AndroidColor.WHITE)
-                )
+                val bg = parseColor(it.colorHex, AndroidColor.parseColor("#2563EB"))
+                val txt = if (isColorLight(bg) && (it.textColorHex.isBlank() || it.textColorHex == "#FFFFFF")) {
+                    AndroidColor.BLACK
+                } else {
+                    parseColor(it.textColorHex, if (isColorLight(bg)) AndroidColor.BLACK else AndroidColor.WHITE)
+                }
+                it.name.uppercase() to Pair(bg, txt)
             }
 
             val marginLeft = 10f
@@ -720,8 +730,8 @@ object PlanillaImageGenerator {
             var currentX = startX + (if (rowItems.size == 1) (colWidth - (snugWidths[0] * scale)) / 2f else 0f)
 
             rowItems.forEachIndexed { idx, name ->
-                val (bgColor, _) = colorProvider(name)
-                chipTextPaint.color = AndroidColor.WHITE
+                val (bgColor, textColor) = colorProvider(name)
+                chipTextPaint.color = textColor
                 chipBgPaint.color = bgColor
 
                 val thisChipW = snugWidths[idx] * scale

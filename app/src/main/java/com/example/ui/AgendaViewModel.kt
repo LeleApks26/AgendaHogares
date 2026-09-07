@@ -10,6 +10,7 @@ import com.example.data.models.Chico
 import com.example.data.models.Lugar
 import com.example.data.models.Operador
 import com.example.data.repository.AgendaRepository
+import com.example.ui.components.getOptimalTextColorHex
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -247,6 +248,12 @@ class AgendaViewModel(application: Application) : AndroidViewModel(application) 
         isCatalogDialogOpen.value = true
     }
 
+    fun openEditActividadDialog(actividad: Actividad) {
+        editingActividad.value = actividad
+        catalogEditType.value = "actividad"
+        isCatalogDialogOpen.value = true
+    }
+
     fun saveActividad(name: String, colorHex: String) {
         viewModelScope.launch {
             val id = editingActividad.value?.id ?: 0L
@@ -261,6 +268,12 @@ class AgendaViewModel(application: Application) : AndroidViewModel(application) 
 
     fun openAddLugarDialog() {
         editingLugar.value = null
+        catalogEditType.value = "lugar"
+        isCatalogDialogOpen.value = true
+    }
+
+    fun openEditLugarDialog(lugar: Lugar) {
+        editingLugar.value = lugar
         catalogEditType.value = "lugar"
         isCatalogDialogOpen.value = true
     }
@@ -289,10 +302,10 @@ class AgendaViewModel(application: Application) : AndroidViewModel(application) 
         isCatalogDialogOpen.value = true
     }
 
-    fun saveOperador(name: String, colorHex: String) {
+    fun saveOperador(name: String, colorHex: String, textColorHex: String = getOptimalTextColorHex(colorHex)) {
         viewModelScope.launch {
             val id = editingOperador.value?.id ?: 0L
-            repository.insertOperador(Operador(id = id, name = name.uppercase().trim(), colorHex = colorHex))
+            repository.insertOperador(Operador(id = id, name = name.uppercase().trim(), colorHex = colorHex, textColorHex = textColorHex))
             isCatalogDialogOpen.value = false
         }
     }
